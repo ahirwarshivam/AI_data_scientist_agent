@@ -38,8 +38,39 @@ if uploaded_file is not None:
     st.subheader("Column Information")
     st.dataframe(column_info, use_container_width=True)
 
+
+# Quality report
     quality = agent.get_data_quality(dataframe)
-    st.subheader("Data Quality")
+    #st.write(quality)
+
+
+    st.subheader("Data Quality Report")
+    st.success("Dataset loaded successfully.")
+
+    if quality["missing_values"] == 0:
+        st.success("No missing values found.")
+    else:
+        st.warning(f'{quality["missing_values"]} missing values detected.')
+
+    if quality["duplicate_rows"] == 0:
+        st.success("No duplicate rows found.")
+    else:
+        st.warning(f'{quality["duplicate_rows"]} duplicate rows detected.')
+
+    if quality["unique_columns"]:
+        st.success("All column names are unique.")
+    else:
+        st.error("Duplicate column names detected.")
+
+    st.info(
+        f"Numerical Columns: {quality['numerical_columns']} | "
+        f"Categorical Columns: {quality['categorical_columns']}"
+    )
+
+    if quality["missing_values"] == 0 and quality["duplicate_rows"] == 0:
+        st.success("Dataset is ready for preprocessing.")
+    else:
+        st.warning("Cleaning is recommended before preprocessing.")
 
 # preview of the dataset
     st.subheader("Dataset Preview")

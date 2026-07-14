@@ -42,15 +42,27 @@ class DatasetAgent:
         "Missing Values": dataframe.isnull().sum().values
     })
         return column_info
-
-# Data quality informztion    
+    
+#Analyze the quality of the uploaded dataset.
     def get_data_quality(self, dataframe):
-        quality = {
-        "missing_values": dataframe.isnull().sum().sum(),
-        "duplicate_rows": dataframe.duplicated().sum(),
-        "unique_columns": dataframe.columns.is_unique,
-        "is_empty": dataframe.empty
-    }
-        return quality
-        
+
+        report = {}
+
+        report["missing_values"] = dataframe.isnull().sum().sum()
+
+        report["duplicate_rows"] = dataframe.duplicated().sum()
+
+        report["unique_columns"] = dataframe.columns.is_unique
+
+        report["categorical_columns"] = dataframe.select_dtypes(
+            include=["object", "category"]
+        ).shape[1]
+
+        report["numerical_columns"] = dataframe.select_dtypes(
+            include=["number"]
+        ).shape[1]
+
+        return report
+
+
     
