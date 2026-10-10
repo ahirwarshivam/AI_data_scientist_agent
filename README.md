@@ -8,7 +8,7 @@ Instead of manually performing every step of a data science project, users simpl
 - Performs Exploratory Data Analysis (EDA)
 - Engineers useful features
 - Selects appropriate machine learning models
-- Trains and evaluates models
+- Trains and evaluates models 
 - Generates interactive visualizations
 - Produces AI-powered analytical reports
 
